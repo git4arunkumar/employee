@@ -35,8 +35,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public void updateEmployee(Employee employee) throws EmployeeDAOException {
-		employeeRepository.save(employee);
+	public Employee updateEmployee(Employee employee) throws EmployeeDAOException {
+		return employeeRepository.save(employee);
 
 	}
 

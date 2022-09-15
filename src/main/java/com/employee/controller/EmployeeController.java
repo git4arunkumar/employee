@@ -22,6 +22,8 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeDAO employeeDAO;
 	
+	private String deleteMsg = "User Deleted Successfully";
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Employee> getEmployee()throws EmployeeServiceException{
 		try {
@@ -51,18 +53,19 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PATCH, value="/{userId}")
-	public void updateEmployee(@PathVariable("userId") Integer userId, @RequestBody Employee employee) throws EmployeeServiceException {
+	public Employee updateEmployee(@PathVariable("userId") Integer userId, @RequestBody Employee employee) throws EmployeeServiceException {
 		try{
-			employeeDAO.updateEmployee(employee);
+			return employeeDAO.updateEmployee(employee);
 		}catch(EmployeeDAOException exception) {
 			throw new EmployeeServiceException("Exception in update employee");
 		}
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/{userId}")
-	public void deleteEmployee(@PathVariable("userId") Integer userId) throws EmployeeServiceException {
+	public String deleteEmployee(@PathVariable("userId") Integer userId) throws EmployeeServiceException {
 		try{
 			employeeDAO.deleteEmployee(userId);
+			return deleteMsg;
 		}catch(EmployeeDAOException exception) {
 			throw new EmployeeServiceException("Exception in delete employee");
 		}
